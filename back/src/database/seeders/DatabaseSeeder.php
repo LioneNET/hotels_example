@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Guest;
+use App\Models\Hotel;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        try {
+            DB::beginTransaction();
+            Role::factory(1)->create();
+            \App\Models\User::factory(10)->create();
+            Guest::factory(100)->create();
+            Hotel::factory(7)->create();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
     }
 }

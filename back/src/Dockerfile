@@ -32,12 +32,10 @@ RUN apt update \
         pcntl \
         zip \
         gd
-# Настройка opcache
-COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # Настройка php.ini
-COPY php.ini /usr/local/etc/php/php.ini
-
+COPY php/php.ini /usr/local/etc/php/php.ini
+COPY . /var/www/laravel_docker
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-ADD . /var/www/laravel_docker
+ADD php /var/www/laravel_docker
 RUN chown -R www-data:www-data /var/www/laravel_docker
 CMD ["php-fpm"]
