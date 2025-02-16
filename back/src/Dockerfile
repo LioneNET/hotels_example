@@ -32,8 +32,6 @@ RUN apt update \
         pcntl \
         zip \
         gd
-# Настройка opcache
-COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # Настройка php.ini
 COPY php.ini /usr/local/etc/php/php.ini
 
